@@ -10,7 +10,7 @@ export class Nuelink implements INodeType {
 		icon: 'file:nuelink.svg',
 		group: ['transform'],
 		version: 1,
-		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
+		subtitle: '={{$parameter["operation"]}}',
 		description: 'Interact with nuelink API',
 		defaults: {
 			name: 'Nuelink'
@@ -120,9 +120,7 @@ export class Nuelink implements INodeType {
 				hint: 'Share your videos as a short video (Reels).',
 				default: false,
 				required: true
-			},
-			// Optional/additional fields will go here
-
+			}
 		],
 	};
 }
