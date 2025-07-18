@@ -2,16 +2,16 @@
 	"node": "n8n-nodes-base.nuelink",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Social Media", "Automation", "Marketing"],
+	"categories": ["Marketing & Content", "Productivity", "Analytics", "Communication"],
 	"resources": {
 		"credentialDocumentation": [
 			{
-				"url": "http://httpbin.org/#/Auth/get_bearer"
+				"url": "https://nuelink.com/docs/"
 			}
 		],
 		"primaryDocumentation": [
 			{
-				"url": "http://httpbin.org/"
+				"url": "https://nuelink.com/docs/"
 			}
 		]
 	}
