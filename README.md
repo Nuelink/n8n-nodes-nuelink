@@ -20,7 +20,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 ## Operations
 
-- **Create Post**: Allows you to create a new post on Nuelink, specifying the content and the social media platforms to publish it on.
+- **Create Post**: Allows you to create a new post on Nuelink, specifying the content and the settings.
 
 ## Credentials
 
@@ -36,12 +36,20 @@ This node is compatible with n8n version 1.36.0 and above. It has been tested ag
 
 ## Usage
 
-By the time users are looking for community nodes, they probably already know n8n basics. But if you expect new users, you can link to the [Try it out](https://docs.n8n.io/try-it-out/) documentation to help them get started.
+1. Add a **Trigger** node (e.g., Webhook or Cron).
+2. Add the **Nuelink** node and choose an operation (e.g., Create Post).
+3. Select or create your API credentials.
+4. Configure your input data (e.g., post content, categories, image URLs).
+5. Connect additional nodes (e.g., filters, conditions, notifications) as needed.
+
+> **Note**  
+> This node is intended for users who are already familiar with n8n.  
+> If you're new to n8n, check out the [Try it out guide](https://docs.n8n.io/try-it-out/) to get started quickly.
 
 ## Resources
 
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-* [Nuelink Documentation](https://nuelink.com)
+* [Nuelink](https://nuelink.com)
 * [Nuelink help center](https://help.nuelink.com)
 
 
