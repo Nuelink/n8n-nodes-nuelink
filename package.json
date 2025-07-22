@@ -1,6 +1,6 @@
 {
   "name": "@nuelink/n8n-nodes-nuelink",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Nuelink Node for n8n",
   "keywords": [
     "n8n-community-node-package",
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/Nuelink/n8n-nodes-nuelink.git"
   },
-  "main": "index.js",
+  "main": "dist/nodes/Nuelink/Nuelink.node.js",
   "scripts": {
     "build": "tsc && gulp build:icons",
     "dev": "tsc --watch",
