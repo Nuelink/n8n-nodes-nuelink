@@ -1,13 +1,12 @@
 import {
 	INodeType,
-	INodeTypeDescription,
-	NodeConnectionType
+	INodeTypeDescription
 } from 'n8n-workflow';
 
 export class Nuelink implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Nuelink',
-		name: 'Nuelink',
+		name: 'nuelink',
 		icon: 'file:nuelink.svg',
 		group: ['transform'],
 		version: 1,
@@ -16,8 +15,8 @@ export class Nuelink implements INodeType {
 		defaults: {
 			name: 'Nuelink'
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'nuelinkApi',
