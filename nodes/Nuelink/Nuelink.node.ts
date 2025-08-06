@@ -1,6 +1,7 @@
 import {
 	INodeType,
-	INodeTypeDescription
+	INodeTypeDescription,
+	NodeConnectionType
 } from 'n8n-workflow';
 
 export class Nuelink implements INodeType {
@@ -11,12 +12,12 @@ export class Nuelink implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
-		description: 'Interact with nuelink API',
+		description: 'Interact with Nuelink API',
 		defaults: {
 			name: 'Nuelink'
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'nuelinkApi',
@@ -31,26 +32,36 @@ export class Nuelink implements INodeType {
 				'Content-Type': 'application/json',
 			},
 		},
-		/**
-		 * In the properties array we have two mandatory options objects required
-		 *
-		 * [Resource & Operation]
-		 *
-		 * https://docs.n8n.io/integrations/creating-nodes/code/create-first-node/#resources-and-operations
-		 *
-		 * In our example, the operations are separated into their own file (HTTPVerbDescription.ts)
-		 * to keep this class easy to read.
-		 *
-		 */
 		properties: [
+			// Resource
+			{
+				displayName: 'Resource',
+				name: 'resource',
+				type: 'options',
+				noDataExpression: true,
+				options: [
+					{
+						name: 'Post',
+						value: 'post',
+					},
+				],
+				default: 'post',
+			},
+
+			// Operation
 			{
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
 				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['post'],
+					},
+				},
 				options: [
 					{
-						name: 'Create Post',
+						name: 'Create',
 						value: 'createPost',
 						action: 'Create post',
 						description: 'Create a new post on Nuelink',
@@ -61,66 +72,87 @@ export class Nuelink implements INodeType {
 								body: {
 									body: '={{$parameter["body"]}}',
 									media: '={{$parameter["media"]}}',
-									altText: '={{$parameter["altText"]}}',
-									title: '={{$parameter["title"]}}',
-									shareToFeed: '={{$parameter["shareToFeed"]}}', // Convert boolean to string if needed
-									postAsShort: '={{$parameter["postAsShort"]}}',
-								}
+									altText: '={{$parameter["additionalFields"].altText}}',
+									title: '={{$parameter["additionalFields"].title}}',
+									shareToFeed: '={{$parameter["additionalFields"].shareToFeed}}'
+								},
 							},
 						},
 					},
 				],
 				default: 'createPost',
 			},
+
+			// main field
 			{
-				displayName: 'Body (Required)',
+				displayName: 'Caption',
 				name: 'body',
 				type: 'string',
-				required: true,
-				description: 'Enter your post caption here',
+				description: 'Post caption',
 				hint: 'Enter your post caption here',
 				default: '',
+				required: true,
+				displayOptions: {
+					show: {
+						resource: ['post'],
+						operation: ['createPost'],
+					},
+				},
 			},
 			{
 				displayName: 'Media',
 				name: 'media',
 				type: 'string',
 				description: 'Enter your media URL here',
-				hint: 'Enter your media URL here',
+				hint: 'Media URL',
 				default: '',
+				displayOptions: {
+					show: {
+						resource: ['post'],
+						operation: ['createPost'],
+					},
+				},
 			},
+
+			// Optional fields in a collection
 			{
-				displayName: 'Alt Text',
-				name: 'altText',
-				type: 'string',
-				description: 'Enter your alt text here',
-				hint: 'Enter your alt text here',
-				default: '',
+				displayName: 'Additional Fields',
+				name: 'additionalFields',
+				type: 'collection',
+				placeholder: 'Add optional fields',
+				default: {},
+				displayOptions: {
+					show: {
+						resource: ['post'],
+						operation: ['createPost'],
+					},
+				},
+				options: [
+					{
+						displayName: 'Title',
+						name: 'title',
+						type: 'string',
+						description: 'Enter your title here',
+						hint: 'Title of the post',
+						default: '',
+					},
+					{
+						displayName: 'Alt Text',
+						name: 'altText',
+						type: 'string',
+						description: 'Enter your alt text here',
+						hint: 'Alt text for media',
+						default: '',
+					},
+					{
+						displayName: 'Share to Feed (Instagram Reels)',
+						name: 'shareToFeed',
+						type: 'boolean',
+						hint: 'Share your Instagram Reel to your feed as well',
+						default: false,
+					}
+				],
 			},
-			{
-				displayName: 'Title (Optional)',
-				name: 'title',
-				type: 'string',
-				description: 'Enter your title here',
-				hint: 'Enter your title here',
-				default: '',
-			},
-			{
-				displayName: 'Share to Feed (Instagram Reels)',
-				name: 'shareToFeed',
-				type: 'boolean',
-				hint: 'Share your Instagram Reel to your feed as well.',
-				default: false,
-				required: true
-			},
-			{
-				displayName: 'Post as Short',
-				name: 'postAsShort',
-				type: 'boolean',
-				hint: 'Share your videos as a short video (Reels).',
-				default: false,
-				required: true
-			}
 		],
 	};
 }
