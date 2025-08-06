@@ -1,6 +1,7 @@
 import {
 	INodeType,
-	INodeTypeDescription
+	INodeTypeDescription,
+	NodeConnectionType
 } from 'n8n-workflow';
 
 export class Nuelink implements INodeType {
@@ -15,8 +16,8 @@ export class Nuelink implements INodeType {
 		defaults: {
 			name: 'Nuelink'
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'nuelinkApi',
