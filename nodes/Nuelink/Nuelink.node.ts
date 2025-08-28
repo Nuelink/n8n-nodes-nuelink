@@ -69,13 +69,13 @@ export class Nuelink implements INodeType {
 							request: {
 								method: 'POST',
 								url: '/pabbly',
-								body: {
-									body: '={{$parameter["body"]}}',
-									media: '={{$parameter["media"]}}',
-									altText: '={{$parameter["additionalFields"].altText}}',
-									title: '={{$parameter["additionalFields"].title}}',
-									shareToFeed: '={{$parameter["additionalFields"].shareToFeed}}'
-								},
+								// body: {
+								// 	body: '={{$parameter["body"]}}',
+								// 	media: '={{$parameter["media"]}}',
+								// 	altText: '={{$parameter["additionalFields"].altText}}',
+								// 	title: '={{$parameter["additionalFields"].title}}',
+								// 	shareToFeed: '={{$parameter["additionalFields"].shareToFeed}}'
+								// },
 							},
 						},
 					},
@@ -83,7 +83,8 @@ export class Nuelink implements INodeType {
 				default: 'createPost',
 			},
 
-			// main field
+
+			// Main required fields
 			{
 				displayName: 'Caption',
 				name: 'body',
@@ -98,6 +99,12 @@ export class Nuelink implements INodeType {
 						operation: ['createPost'],
 					},
 				},
+				routing: {
+					send: {
+						property: 'body',
+						type: 'body',
+					},
+				},
 			},
 			{
 				displayName: 'Media',
@@ -110,6 +117,12 @@ export class Nuelink implements INodeType {
 					show: {
 						resource: ['post'],
 						operation: ['createPost'],
+					},
+				},
+				routing: {
+					send: {
+						property: 'media',
+						type: 'body',
 					},
 				},
 			},
@@ -135,6 +148,12 @@ export class Nuelink implements INodeType {
 						description: 'Enter your title here',
 						hint: 'Title of the post',
 						default: '',
+						routing: {
+							send: {
+								property: 'title',
+								type: 'body',
+							},
+						},
 					},
 					{
 						displayName: 'Alt Text',
@@ -143,6 +162,12 @@ export class Nuelink implements INodeType {
 						description: 'Enter your alt text here',
 						hint: 'Alt text for media',
 						default: '',
+						routing: {
+							send: {
+								property: 'altText',
+								type: 'body',
+							},
+						},
 					},
 					{
 						displayName: 'Share to Feed (Instagram Reels)',
@@ -150,7 +175,13 @@ export class Nuelink implements INodeType {
 						type: 'boolean',
 						hint: 'Share your Instagram Reel to your feed as well',
 						default: false,
-					}
+						routing: {
+							send: {
+								property: 'shareToFeed',
+								type: 'body',
+							},
+						},
+					},
 				],
 			},
 		],
